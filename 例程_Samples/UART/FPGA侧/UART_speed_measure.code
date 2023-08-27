@@ -1,0 +1,27 @@
+label init
+    mov|im1 0 _ reg0
+    mov|im1 0 _ reg1
+    mov|im1 0 _ reg2
+    mov|im1 0 _ reg3
+    mov|im1 0 _ reg4
+    mov|im1 0 _ reg5
+    mov|im1 0 _ reg6
+    mov|im1 0 _ reg7
+    mov|im1 0 _ reg8
+    mov|im1 0 _ reg9
+    mov|im1 0 _ reg10
+    mov|im1 0 _ reg11
+    mov|im1 0 _ ioad
+    mov|im1 0 _ timer
+    call _ _ uart_init
+    jmp _ _ main
+
+label uart_init
+    mov|im1 uart.lcr _ ioad
+    mov|im1 0b111 _ ioc
+    ret _ _ _
+
+label main
+    mov|im1 uart _ ioad
+    mov|im1 1 _ ioc
+    jmp _ _ main

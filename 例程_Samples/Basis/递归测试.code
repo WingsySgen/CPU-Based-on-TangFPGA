@@ -1,0 +1,23 @@
+LABEL MAIN
+    MOV|IM1 5 _ REG1
+    CALL _ _ FUNCTION
+    MOV REG1 _ REG12
+LABEL WAIT
+    JE _ _ WAIT
+
+LABEL FUNCTION
+    JNE|IM2 REG1 1 NXT
+        RET _ _ _
+    LABEL NXT
+        MEMW REG1 REG0 _
+        ADD|IM2 REG0 1 REG7
+        MOV REG7 _ REG0
+        SUB|IM2 REG1 1 REG7
+        MOV REG7 _ REG1
+        CALL _ _ FUNCTION
+        SUB|IM2 REG0 1 REG7
+        MOV REG7 _ REG0
+        MEMR _ REG0 REG2
+        MULL REG2 REG1 REG3
+        MOV REG3 _ REG1
+        RET _ _ _

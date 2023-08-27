@@ -1,0 +1,39 @@
+# uart每隔一秒发送一个递增的整数
+
+label init
+    mov|im1 0 _ reg0
+    mov|im1 0 _ reg1
+    mov|im1 0 _ reg2
+    mov|im1 0 _ reg3
+    mov|im1 0 _ reg4
+    mov|im1 0 _ reg5
+    mov|im1 0 _ reg6
+    mov|im1 0 _ reg7
+    mov|im1 0 _ reg8
+    mov|im1 0 _ reg9
+    mov|im1 0 _ reg10
+    mov|im1 0 _ reg11
+    mov|im1 0 _ ioad
+    mov|im1 0 _ timer
+    call _ _ uart_init
+    jmp _ _ main
+
+label uart_init
+    mov|im1 uart.lcr _ ioad
+    mov|im1 7 _ ioc
+    ret _ _ _
+
+label sleep
+    mov timer _ reg0
+    label sleep_1
+        je reg0 timer sleep_1
+    label sleep_2
+        jne reg0 timer sleep_2
+    ret _ _ _
+
+label main
+    add|im2 reg1 0x1 reg1
+    mov|im1 uart _ ioad
+    mov reg1 _ ioc
+    call _ _ sleep
+    je _ _ main

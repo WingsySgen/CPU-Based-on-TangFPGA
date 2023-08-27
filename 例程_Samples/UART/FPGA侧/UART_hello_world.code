@@ -1,0 +1,76 @@
+# uart连续发送一段写在RAM中的字符串，每隔0.5s发送一次
+
+label init
+    mov|im1 0 _ reg0
+    mov|im1 0 _ reg1
+    mov|im1 0 _ reg2
+    mov|im1 0 _ reg3
+    mov|im1 0 _ reg4
+    mov|im1 0 _ reg5
+    mov|im1 0 _ reg6
+    mov|im1 0 _ reg7
+    mov|im1 0 _ reg8
+    mov|im1 0 _ reg9
+    mov|im1 0 _ reg10
+    mov|im1 0 _ reg11
+    mov|im1 0 _ ioad
+    mov|im1 0 _ timer
+    #call _ _ ram_init
+    call _ _ uart_init
+    jmp _ _ main
+
+#label ram_init
+#    memw|im1|im2 0x68 0 _
+#    memw|im1|im2 0x65 1 _
+#    memw|im1|im2 0x6c 2 _
+#    memw|im1|im2 0x6c 3 _
+#    memw|im1|im2 0x6f 4 _
+#    memw|im1|im2 0x20 5 _
+#    memw|im1|im2 0x77 6 _
+#    memw|im1|im2 0x6f 7 _
+#    memw|im1|im2 0x72 8 _
+#    memw|im1|im2 0x6c 9 _
+#    memw|im1|im2 0x64 10 _
+#    memw|im1|im2 0x0a 11 _
+#    memw|im1|im2 0 12 _
+#    ret _ _ _ 
+
+label uart_init
+    mov|im1 uart.lcr _ ioad
+    mov|im1 7 _ ioc
+    ret _ _ _
+
+label uart_wrt
+    label uart_wrt_1
+        mov|im1 uart.lsr _ ioad
+        nop _ _ _
+        nop _ _ _
+        and|im2 ioc 0b01100000 reg10
+        jne|im2 reg10 0b01100000 uart_wrt_1
+    mov|im1 uart _ ioad
+    mov reg11 _ ioc
+    ret _ _ _
+
+label sleep
+    mov timer _ reg0
+    label sleep_1
+        je reg0 timer sleep_1
+    add|im2 reg0 128 reg0
+    label sleep_2
+        jne reg0 timer sleep_2
+    mov|im1 0 _ reg0
+    ret _ _ _
+
+label main
+    label main_loop_1
+        memr _ reg0 reg1
+        je|im2 reg1 0 main_loop_1_end
+        mov reg1 _ reg11
+        call _ _ uart_wrt
+        add|im2 reg0 1 reg0
+        jmp _ _ main_loop_1
+    label main_loop_1_end
+    #memr|im2 _ 0 reg11
+    #call _ _ uart_wrt
+    call _ _ sleep
+    je _ _ main
