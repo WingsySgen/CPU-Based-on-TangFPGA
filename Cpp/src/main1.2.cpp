@@ -1,6 +1,5 @@
 //2023.02.06
-//添加了注释功能，使用'#'在行首来注释一行内容
-//release版本
+//添加了注释功能，使用'#'在行首来注释一行内容 
 #include<fstream>
 #include<string>
 #include<iomanip>
@@ -9,9 +8,8 @@
 #include<algorithm>
 #include<sstream>
 using namespace std;
-string SOURCE = "D:\\Data\\VSCode\\C++\\8bitcpu汇编编译\\UARTtest.code";
-// string TARGET = "D:\\Data\\FPGA_PROJECT\\Top\\src\\ROM_32bit\\ROM_32bit.v";
-string TARGET = "D:\\Data\\FPGA_PROJECT\\8bitCPU_test\\src\\ROM_32bit\\ROM_32bit.v";
+string SOURCE = "";
+string TARGET = "";
 ifstream fin;
 ofstream fout;
 map<string, int> table;
@@ -20,7 +18,7 @@ int tot;
 void LOAD(){
     fin.close();
     fout.close();
-    fin.open("D:\\Data\\VSCode\\C++\\8bitcpu汇编编译\\table", ios::in);
+    fin.open("table", ios::in);
     string s;
     int num;
     while(fin >> s >> num){

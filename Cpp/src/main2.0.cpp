@@ -16,8 +16,8 @@
 #include<algorithm>
 #include<sstream>
 using namespace std;
-string SOURCE = "D:\\Data\\VSCode\\C++\\8bitcpu汇编编译\\UART\\UART_rcv1.code";
-string TARGET = "D:\\Data\\FPGA_PROJECT\\8bitCPU_test\\src\\ROM_32bit\\ROM_32bit.v";
+string SOURCE = ""; //汇编代码路径
+string TARGET = "src\\ROM_32bit\\ROM_32bit.v"; //ROM_32bit.v的路径
 ifstream fin;
 ofstream fout;
 map<string, int> table;
@@ -26,7 +26,7 @@ int tot;
 void LOAD(){
     fin.close();
     fout.close();
-    fin.open("D:\\Data\\VSCode\\C++\\8bitcpu汇编编译\\table", ios::in);
+    fin.open("table", ios::in);
     string s;
     int num;
     while(fin >> s >> num){
