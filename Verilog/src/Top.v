@@ -80,17 +80,4 @@ UART_PORT uart(
     .RX(RX)
 );
 
-Register_8bit Register(
-    .en_A(en_A[i]), //向总线A输出的使能，高电平有效
-    .en_B(1'b0), //向总线B输出的使能，高电平有效
-    .en_i(en_C[i]), //从总线C获取的使能，高电平有效
-    .data_i(bus_C), //从总线C获取的数据
-    .rst(rst),      //复位，低电平有效，复位后将data重置为0
-    .clk(clk),
-    .clk_in(clk_in),
-    .data_A(bus_A), //向总线A输出的数据，en_A为高电平时输出，为低电平时为高阻态
-    .data_B(bus_B), //向总线B输出的数据，en_B为高电平时输出，为低电平时为高阻态
-    .data_o(reg_o[i])
-);
-
 endmodule
