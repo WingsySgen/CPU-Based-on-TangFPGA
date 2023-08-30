@@ -1,0 +1,46 @@
+GowinSynthesis start
+Running parser ...
+Analyzing Verilog file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v'
+Analyzing included file 'top_define.vh'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":1)
+Back to file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":1)
+Analyzing included file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\static_macro_define.vh'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":2)
+Back to file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":2)
+Analyzing included file 'spi_master_defines.vh'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":3)
+Back to file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":3)
+Analyzing Verilog file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp'
+Analyzing included file 'top_define.vh'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":414)
+Back to file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":414)
+Analyzing included file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\static_macro_define.vh'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":414)
+Back to file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":414)
+Analyzing included file 'spi_master_defines.vh'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":414)
+Back to file 'D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":414)
+Compiling module 'SPI_MASTER_Top'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":5)
+Compiling module '**'("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":0)
+WARN  (EX3791) : Expression size ** truncated to fit in target size **("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":0)
+WARN  (EX2629) : Delay control is not supported for synthesis("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":0)
+WARN  (EX2420) : Latch inferred for net '**'; We do not recommend the use of latches in FPGA designs, as they may lead to timing problems("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":0)
+NOTE  (EX0101) : Current top module is "SPI_MASTER_Top"
+WARN  (EX0211) : The output port "MISO_SLAVE" of module "~spi_master.SPI_MASTER_Top" has no driver, assigning undriven bits to Z, simulation mismatch possible("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master.vp":0)
+[5%] Running netlist conversion ...
+WARN  (CV0016) : Input MOSI_SLAVE is unused("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":43)
+WARN  (CV0016) : Input SS_N_SLAVE is unused("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":44)
+WARN  (CV0016) : Input SCLK_SLAVE is unused("D:\Soft\Gowin\Gowin_V1.9.8.09_Education\IDE\ipcore\SPIMASTER\data\spi_master_top.v":45)
+Running device independent optimization ...
+[10%] Optimizing Phase 0 completed
+[15%] Optimizing Phase 1 completed
+[25%] Optimizing Phase 2 completed
+Running inference ...
+[30%] Inferring Phase 0 completed
+[40%] Inferring Phase 1 completed
+[50%] Inferring Phase 2 completed
+[55%] Inferring Phase 3 completed
+Running technical mapping ...
+[60%] Tech-Mapping Phase 0 completed
+[65%] Tech-Mapping Phase 1 completed
+[75%] Tech-Mapping Phase 2 completed
+[80%] Tech-Mapping Phase 3 completed
+[90%] Tech-Mapping Phase 4 completed
+[95%] Generate netlist file "D:\Data\FPGA_PROJECT\8bitCPU_test\src\spi_master\temp\SPI_MASTER\spi_master.vg" completed
+Generate template file "D:\Data\FPGA_PROJECT\8bitCPU_test\src\spi_master\temp\SPI_MASTER\spi_master_tmp.v" completed
+[100%] Generate report file "D:\Data\FPGA_PROJECT\8bitCPU_test\src\spi_master\temp\SPI_MASTER\spi_master_syn.rpt.html" completed
+GowinSynthesis finish

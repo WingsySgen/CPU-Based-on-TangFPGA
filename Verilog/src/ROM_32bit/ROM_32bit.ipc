@@ -1,0 +1,14 @@
+[General]
+ipc_version=4
+file=ROM_32bit
+module=ROM_32bit
+target_device=gw1nr9c-004
+type=ram_prom
+version=1.0
+
+[Config]
+DEPTH=256
+LANG=0
+READ=0
+RESET_MODE=true
+WIDTH=32

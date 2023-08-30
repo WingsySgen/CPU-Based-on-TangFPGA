@@ -1,0 +1,10 @@
+`define MASTER 1
+`define SLAVE_NUMBER 1
+`define DATA_LENGTH 8
+`define SHIFT_DIRECTION 0
+`define CLOCK_PHASE 0
+`define CLOCK_POLARITY 0
+`define CLKCNT_WIDTH 5
+`define CLOCK_SEL 0
+`define DELAY_TIME 2
+`define INTERVAL_LENGTH 2

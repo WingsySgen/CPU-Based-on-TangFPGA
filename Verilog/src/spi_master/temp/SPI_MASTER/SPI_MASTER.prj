@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-synthesis-project>
+<Project>
+    <Version>beta</Version>
+    <Device id="GW1NR-9C" package="QFN88P" speed="6" partNumber="GW1NR-LV9QN88PC6/I5"/>
+    <FileList>
+        <File path="D:/Soft/Gowin/Gowin_V1.9.8.09_Education/IDE/ipcore/SPIMASTER/data/spi_master_top.v" type="verilog"/>
+        <File path="D:/Soft/Gowin/Gowin_V1.9.8.09_Education/IDE/ipcore/SPIMASTER/data/spi_master.vp" type="verilog"/>
+    </FileList>
+    <OptionList>
+        <Option type="disable_insert_pad" value="1"/>
+        <Option type="dsp_balance" value="1"/>
+        <Option type="include_path" value="D:/Soft/Gowin/Gowin_V1.9.8.09_Education/IDE/ipcore/SPIMASTER/data"/>
+        <Option type="include_path" value="D:/Data/FPGA_PROJECT/8bitCPU_test/src/spi_master/temp/SPI_MASTER"/>
+        <Option type="output_file" value="spi_master.vg"/>
+        <Option type="output_template" value="spi_master_tmp.v"/>
+        <Option type="ram_balance" value="1"/>
+        <Option type="ram_rw_check" value="1"/>
+        <Option type="verilog_language" value="sysv-2017"/>
+    </OptionList>
+</Project>
