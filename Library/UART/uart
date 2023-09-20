@@ -1,0 +1,47 @@
+#uart_init()
+#初始化uart模块为
+#禁用中断、禁用奇偶校验、8位数据、2个停止位
+#需要自定义初始化时请参照uart高云ip核手册
+#http://cdn.gowinsemi.com.cn/IPUG511-1.6_Gowin_UART_Master_IP_&_Slave参考设计用户指南.pdf
+
+label uart_init
+    mov|im1 uart.lcr _ ioad
+    mov|im1 7 _ ioc
+    ret _ _ _
+
+
+
+#uart_wt()
+#从reg11获取值，等待上一次发送完毕后发送
+#过程中会使用到reg10
+
+label uart_wt
+    label uart_wt_1
+        mov|im1 uart.lsr _ ioad
+        nop _ _ _
+        nop _ _ _
+        and|im2 ioc 0b01100000 reg10
+        jne|im2 reg10 0b01100000 uart_wt_1
+    mov|im1 uart _ ioad
+    mov reg11 _ ioc
+    ret _ _ _
+
+
+
+#uart_rd()
+#不断监听等待接受到一个数据，返回给reg11
+#没有中断时的妥协产物，并不优雅
+#过程中会使用到reg10
+
+label uart_rd
+    label uart_rd_1
+        mov|im1 uart.lsr _ ioad
+        nop _ _ _
+        nop _ _ _
+        and|im2 ioc 1 reg10
+        jne|im2 reg10 1 uart_rd_1
+    mov|im1 uart _ ioad
+    nop _ _ _
+    nop _ _ _
+    mov ioc _ reg11
+    ret _ _ _
