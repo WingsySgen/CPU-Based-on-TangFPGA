@@ -37,7 +37,7 @@ module SPI_PORT
 		.SCLK_MASTER(SCLK), //output SCLK_MASTER
 		.MISO_SLAVE(), //output MISO_SLAVE
 		.MOSI_SLAVE(1'b0), //input MOSI_SLAVE
-		.SS_N_SLAVE(1'b1), //input SS_N_SLAVE
+		.SS_N_SLAVE(1'b0), //input SS_N_SLAVE
 		.SCLK_SLAVE(1'b0) //input SCLK_SLAVE
 	);
 endmodule

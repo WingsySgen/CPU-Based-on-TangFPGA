@@ -3,7 +3,7 @@
 module TOP
 #(
     SPI_IONUM = 1,
-    CPU_IOC_IONUM = 3
+    CPU_IOC_IONUM = 2
 )
 (
     input   wire    rst,
@@ -16,9 +16,7 @@ module TOP
     output  wire    SCLK,
 
     input   wire    RX,
-    output  wire    TX,
-
-    output  wire    tft_D_CX
+    output  wire    TX
 
 );
 
@@ -34,6 +32,17 @@ always @(posedge clk_sys, `RSTEDGE rst) begin
     if (!rst) cnt_1M <= 4'b0;
     else cnt_1M <= cnt_1M + 1'b1;
 end
+
+//reg clk;
+//initial begin
+//    clk <= 1'b1;
+//end
+//always @(posedge clk_sys or negedge rst) begin
+//    if (!rst) clk <= 1'b1;
+//    else begin
+//        clk <= ~clk;
+//    end
+//end
 
 
 CPU 
@@ -59,7 +68,7 @@ spi
 (
     .en_i(en_io[0]),
     .en_cs(en_cs[0]),
-    .clk_in(clk_1M),
+    .clk_in(clk_sys),
     .rst(rst),
     .addr_i(addr),
     .data(bus_io),
