@@ -1,13 +1,16 @@
-#驱动IC=st7735s，从(40, 80)到(50, 90)填充为红色
+#驱动IC=st7735s，不断刷屏
 #reg0、reg1被sleep占用
 #reg11、reg10被spi写函数占用
 #reg2、reg3、reg4、reg5用来存放写数据的地址范围
 #reg6、reg7用于循环
+#reg8、reg9颜色
 jmp _ _ init
 
 label init
     call _ _ spi_init
     call _ _ tft_init
+    mov|im1 0xf8 _ reg8
+    mov|im1 0x00 _ reg9
     jmp _ _ main
 
 label spi_init
@@ -27,7 +30,7 @@ label spi_wait
     ret _ _ _
 
 label spi_wt
-    call _ _ spi_wait
+#    call _ _ spi_wait
     mov|im1 spi.snd _ ioad
     mov reg11 _ ioc
     ret _ _ _
@@ -218,6 +221,26 @@ label tft_init
     mov|im1 0x29 _ reg11
     call _ _ wt_cmd
 
+    mov|im1 0 _ reg2
+    mov|im1 128 _ reg3
+    mov|im1 0 _ reg4
+    mov|im1 160 _ reg5
+    mov|im1 0xff _ reg8
+    mov|im1 0xff _ reg9
+    call _ _ tft_set_addr
+    label tft_init_for_1
+        jg reg6 reg3 tft_init_for_1_end
+        mov reg4 _ reg7 
+        label tft_init_for_2
+            jg reg7 reg5 tft_init_for_2_end
+            call _ _ tft_set_color
+            add|im2 reg7 1 reg7
+            jmp _ _ tft_init_for_2
+            label tft_init_for_2_end
+        add|im2 reg6 1 reg6
+        jmp _ _ tft_init_for_1
+        label tft_init_for_1_end
+
     ret _ _ _
 
 label sleep
@@ -258,17 +281,21 @@ label tft_set_addr
     ret _ _ _
 
 label tft_set_color
-    mov|im1 0xf8 _ reg11
+    mov reg8 _ reg11
     call _ _ wt_dat
-    mov|im1 0x00 _ reg11
+    mov reg9 _ reg11
     call _ _ wt_dat
     ret _ _ _
 
 label main
-    mov|im1 40 _ reg2
-    mov|im1 80 _ reg3
-    mov|im1 50 _ reg4
-    mov|im1 90 _ reg5
+#    mov|im1 40 _ reg2
+#    mov|im1 80 _ reg3
+#    mov|im1 50 _ reg4
+#    mov|im1 90 _ reg5
+    add|im2 reg9 1 reg9
+    jne|im2 reg9 0 main_nxt
+        add|im2 reg8 1 reg8
+        label main_nxt
     call _ _ tft_set_addr
     mov reg2 _ reg6
     label main_for_1
@@ -283,6 +310,6 @@ label main
         add|im2 reg6 1 reg6
         jmp _ _ main_for_1
         label main_for_1_end
-    mov|im1 255 _ reg1
-    call _ _ sleep
+#    mov|im1 255 _ reg1
+#    call _ _ sleep
     jmp _ _ main
