@@ -1,0 +1,271 @@
+#接口：
+#   底层：
+#       spi_wt()        spi写函数，从reg11获取数据
+#       spi_init()      spi初始化函数
+#   一层封装：
+#       wt_cmd()        从reg11获取数据，按命令写入，依赖spi_wt()
+#       wt_dat()        从reg11获取数据，按数据写入，依赖spi_wt()
+#   二层封装：
+#       tft_init()      初始化st7735s并清屏
+#       tft_set_addr()  从reg2-5获取上下边界、左右边界
+#       tft_set_color() 按rgb565写入一个颜色，从reg8、reg9获取颜色的高八位和低八位
+
+#不含spi_init()，在初始化中请自行调用spi_init()
+#
+#tft_init()会占用大量代码内存，导致256条指令不是很够用。
+#但是原生的8位PC只能指向256条指令，可以想到有两种解决方向：
+#   1. 更改物理结构，使得PC支持指向更多空间。
+#   2. 把这部分内容初始化到某个ROM中，空间换时间。
+#想实现前者可以直接扩大PC位数，或者通过另外一个寄存器和PC拼在一起，但无论哪种除了需要更改硬件结构，还至少需要引入新的指令来适配给PC赋值等操作。
+#8bit版本中很多代码都是我在初学期搓的，时序比较混乱，更改物理结构并再次使其稳定需要的时间可能不亚于开发一个新的CPU出来
+#所以可以采取后者作为一个折中的方式，且访存指令(xx01xxxx)中目前只存在memr(xx01xxx0)和memw(xx01xxx1)，理论上还能扩大7个256字节的空间。支持后者做出的更改要比前者简单。
+#
+
+label tft_init
+    mov|im1 tft _ ioad
+
+    mov|im1 0 _ ioc
+    mov|im1 2 _ reg1
+    call _ _ sleep
+
+    mov|im1 2 _ ioc
+    mov|im1 2 _ reg1
+    call _ _ sleep
+
+    mov|im1 0 _ ioc
+    mov|im1 8 _ reg1
+    call _ _ sleep
+
+    mov|im1 0x01 _ reg11
+    call _ _ wt_cmd
+    mov|im1 8 _ reg1
+    call _ _ sleep
+
+    mov|im1 0x11 _ reg11
+    call _ _ wt_cmd
+    mov|im1 8 _ reg1
+    call _ _ sleep
+
+    mov|im1 0xb1 _ reg11
+    call _ _ wt_cmd
+    call _ _ func1
+    mov|im1 0xb2 _ reg11
+    call _ _ wt_cmd
+    call _ _ func1
+    mov|im1 0xb3 _ reg11
+    call _ _ wt_cmd
+    call _ _ func1
+    call _ _ func1
+    mov|im1 0xb4 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x03 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xc0 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x28 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x08 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x04 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xc1 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0xc0 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xc2 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x0d _ reg11
+    call _ _ wt_dat
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xc3 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x8d _ reg11
+    call _ _ wt_dat
+    mov|im1 0x2a _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xc4 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x8d _ reg11
+    call _ _ wt_dat
+    mov|im1 0xee _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xc5 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x1a _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0x36 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0xc0 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xe0 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x04 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x22 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x07 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x0a _ reg11
+    call _ _ wt_dat
+    mov|im1 0x2e _ reg11
+    call _ _ wt_dat
+    mov|im1 0x30 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x25 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x2a _ reg11
+    call _ _ wt_dat
+    mov|im1 0x28 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x26 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x2e _ reg11
+    call _ _ wt_dat
+    mov|im1 0x3a _ reg11
+    call _ _ wt_dat
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x01 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x03 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x13 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0xe1 _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x04 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x16 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x06 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x0d _ reg11
+    call _ _ wt_dat
+    mov|im1 0x2d _ reg11
+    call _ _ wt_dat
+    mov|im1 0x26 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x23 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x27 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x27 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x25 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x2d _ reg11
+    call _ _ wt_dat
+    mov|im1 0x3b _ reg11
+    call _ _ wt_dat
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x01 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x04 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x13 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0x3a _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x05 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0x29 _ reg11
+    call _ _ wt_cmd
+
+    mov|im1 0 _ reg2
+    mov|im1 128 _ reg3
+    mov|im1 0 _ reg4
+    mov|im1 160 _ reg5
+    mov|im1 0xff _ reg8
+    mov|im1 0xff _ reg9
+    call _ _ tft_set_addr
+    label tft_init_for_1
+        jg reg6 reg3 tft_init_for_1_end
+        mov reg4 _ reg7 
+        label tft_init_for_2
+            jg reg7 reg5 tft_init_for_2_end
+            call _ _ tft_set_color
+            add|im2 reg7 1 reg7
+            jmp _ _ tft_init_for_2
+            label tft_init_for_2_end
+        add|im2 reg6 1 reg6
+        jmp _ _ tft_init_for_1
+        label tft_init_for_1_end
+
+    ret _ _ _
+
+label wt_dat
+    call _ _ spi_wait
+    mov|im1 tft _ ioad
+    mov|im1 1 _ ioc
+    call _ _ spi_wt
+    ret _ _ _ 
+
+label wt_cmd
+    call _ _ spi_wait
+    mov|im1 tft _ ioad
+    mov|im1 0 _ ioc
+    call _ _ spi_wt
+    ret _ _ _ 
+
+label func1
+    mov|im1 0x05 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x3c _ reg11
+    call _ _ wt_dat
+    mov|im1 0x3c _ reg11
+    call _ _ wt_dat
+    ret _ _ _
+
+label tft_set_addr
+    mov|im1 0x2a _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+    mov reg2 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+    mov reg3 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0x2b _ reg11
+    call _ _ wt_cmd
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+    mov reg4 _ reg11
+    call _ _ wt_dat
+    mov|im1 0x00 _ reg11
+    call _ _ wt_dat
+    mov reg5 _ reg11
+    call _ _ wt_dat
+
+    mov|im1 0x2c _ reg11
+    call _ _ wt_cmd
+
+    ret _ _ _
+
+label tft_set_color
+    mov reg8 _ reg11
+    call _ _ wt_dat
+    mov reg9 _ reg11
+    call _ _ wt_dat
+    ret _ _ _
+
+#label spi_wt
+##    call _ _ spi_wait
+#    mov|im1 spi.snd _ ioad
+#    mov reg11 _ ioc
+#    ret _ _ _
