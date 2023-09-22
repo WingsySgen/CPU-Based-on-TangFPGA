@@ -16,8 +16,8 @@
 #include<algorithm>
 #include<sstream>
 using namespace std;
-string SOURCE = ""; //汇编代码路径
-string TARGET = "src\\ROM_32bit\\ROM_32bit.v"; //ROM_32bit.v的路径
+string SOURCE = "D:\\Data\\VSCode\\C++\\8bitcpu汇编编译_8bit\\SPI\\spi_tft_test2.code";
+string TARGET = "D:\\Data\\FPGA_PROJECT\\CPU\\8bit\\8bitCPU_IOC_release\\src\\ROM_32bit\\ROM_32bit.v";
 ifstream fin;
 ofstream fout;
 map<string, int> table;
@@ -26,7 +26,7 @@ int tot;
 void LOAD(){
     fin.close();
     fout.close();
-    fin.open("table", ios::in);
+    fin.open("D:\\Data\\VSCode\\C++\\8bitcpu汇编编译_8bit\\table", ios::in);
     string s;
     int num;
     while(fin >> s >> num){
@@ -165,7 +165,7 @@ bool COMPILE(){
             cout << s << " " << a << " " << b << " " << c << "\n";
         }
     }
-    return true;
+    return tot < 1024;
 }
 void BUILD(){
     fout.close();
@@ -234,8 +234,7 @@ int main(){
     LOAD();
     LOAD_LABEL();
     if (COMPILE()) BUILD(), cerr << "Done.";
-    else cerr << "Wrong.\n";
+    else cerr << "Wrong.\n", cin.get();
     fout.flush();
-    cin.get();
     return 0;
 }
