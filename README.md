@@ -235,7 +235,7 @@ CPU模块对外部提供一个4位的**片内地址线**以及一个inout类型�
 ```verilog
 module Template
 (
-	input   wire            clk,
+    input   wire            clk,
     input   wire            rst_n,
 
     inout   wire[31:0]      data_io,
