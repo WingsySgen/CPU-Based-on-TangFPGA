@@ -2,9 +2,13 @@
 
 ---
 
-#### The 32bit version is coming!!!
+The [32bit version](https://github.com/WingsySgen/SG32-Dev) is coming!!\!
 
-基于Sipeed Tang FPGA的简易CPU/框架：SG32D
+[32位版本](https://github.com/WingsySgen/SG32-Dev)将在2024年6月1日后开源。
+
+
+
+SG8：基于Sipeed Tang Nano 9k/20k的简易CPU/框架
 
 - [简介](#简介)
 - [使用方法](#使用方法)
@@ -20,7 +24,7 @@
 
 ***
 
-SG32D：基于Tang FPGA的简易CPU/框架。定长指令，哈佛结构，单周期设计，32位宽。将在2024年6月1日开源，且会被单独移至一个仓库。
+基于Tang FPGA的简易CPU/框架。定长指令，哈佛结构，单周期设计。
 
 该项目使用Verilog在FPGA上实现CPU。可以使用任意文本编辑器写适用于该CPU的汇编命令，然后使用C++进行从汇编到比特流的映射，写到Verilog的Gowin IP核初始化文件中烧入FPGA，或者通过串口将程序上传至CPU。
 
